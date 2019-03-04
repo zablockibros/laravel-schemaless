@@ -33,17 +33,6 @@ class CreateSchemalessTables extends Migration
                 $table->timestamps();
             });
         }
-
-        if (! Schema::hasTable('fields')) {
-            Schema::create('fields', function (Blueprint $table) {
-                $table->increments('id');
-                $table->nullableMorphs('fieldable');
-                $table->string('name')->default('default');
-                $table->json('columns')->nullable();
-                $table->softDeletes();
-                $table->timestamps();
-            });
-        }
     }
 
     /**
@@ -55,6 +44,5 @@ class CreateSchemalessTables extends Migration
     {
         Schema::dropIfExists('items');
         Schema::dropIfExists('item_items');
-        Schema::dropIfExists('fields');
     }
 }
