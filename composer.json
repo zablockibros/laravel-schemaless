@@ -1,0 +1,55 @@
+{
+    "name": "zablockibros/laravel-schemaless",
+    "description": "Make models with no schema",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Justin Zablocki",
+            "email": "zablockijj@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1.3",
+        "doctrine/dbal": "^2.9",
+        "illuminate/config": "~5.7.0",
+        "illuminate/console": "~5.7.0",
+        "illuminate/database": "~5.7.0",
+        "illuminate/support": "~5.7.0"
+    },
+    "require-dev": {
+        "fzaninotto/faker": "^1.4",
+        "mockery/mockery": "^1.0",
+        "phpunit/phpunit": "~7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ZablockiBros\\Schemaless\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ZablockiBros\\Schemaless\\Tests\\": "tests/"
+        },
+        "files": [
+            "tests/utilities/functions.php"
+        ]
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "ZablockiBros\\Schemaless\\ComposerScripts::postAutoloadDump"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ZablockiBros\\Schemaless\\SchemalessServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
