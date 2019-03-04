@@ -29,7 +29,7 @@ trait HasSchemalessAttributes
             )
         );
 
-        $this->addHidden([$this->getExtraAttributesTableKey()]);
+        $this->addHidden([$this->getExtraAttributesColumnName()]);
 
         return;
     }
@@ -55,7 +55,7 @@ trait HasSchemalessAttributes
      */
     public function setColumnsAttribute($value)
     {
-        $this->attributes[$this->getExtraAttributesTableKey()] = json_encode($value);
+        $this->attributes[$this->getExtraAttributesColumnName()] = json_encode($value);
     }
 
     /**
@@ -68,7 +68,7 @@ trait HasSchemalessAttributes
     public function getAttribute($key)
     {
         if (array_key_exists($key, $this->extraAttributes)) {
-            return $this->{$this->getExtraAttributesTableKey()}[$key] ?? null;
+            return $this->{$this->getExtraAttributesColumnName()}[$key] ?? null;
         }
 
         return parent::getAttribute($key);
@@ -83,7 +83,7 @@ trait HasSchemalessAttributes
     public function setAttribute($key, $value)
     {
         if (array_key_exists($key, $this->extraAttributes)) {
-            $this->{$this->getExtraAttributesTableKey()} = array_merge($this->{$this->getExtraAttributesTableKey()}, [$key => $value]);
+            $this->{$this->getExtraAttributesColumnName()} = array_merge($this->{$this->getExtraAttributesColumnName()}, [$key => $value]);
 
             return;
         }
@@ -129,7 +129,7 @@ trait HasSchemalessAttributes
      *
      * @return string
      */
-    protected function getExtraAttributesTableKey()
+    protected function getExtraAttributesColumnName()
     {
         return 'columns';
     }

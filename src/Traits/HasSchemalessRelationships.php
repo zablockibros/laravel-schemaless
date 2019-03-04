@@ -13,8 +13,8 @@ trait HasSchemalessRelationships
      */
     public function itemable(string $class = Item::class)
     {
-        return $this->morphTo('itemable')
-            ->where('itemable_type', $class);
+        return $this->morphTo($this->getItemMorphColumnName())
+            ->where($this->getItemMorphColumnName() . '_type', $class);
     }
 
     /**
@@ -24,7 +24,7 @@ trait HasSchemalessRelationships
      */
     public function item(string $class = Item::class)
     {
-        return $this->morphOne(Item::class, 'itemable');
+        return $this->morphOne(Item::class, $this->getItemMorphColumnName());
     }
 
     /**
@@ -34,7 +34,7 @@ trait HasSchemalessRelationships
      */
     public function items(string $class = Item::class)
     {
-        return $this->morphMany(Item::class, 'itemable');
+        return $this->morphMany(Item::class, $this->getItemMorphColumnName());
     }
 
     /**
@@ -73,5 +73,15 @@ trait HasSchemalessRelationships
             ->withPivot('parent_type', 'parent_id', 'child_type', 'child_id')
             ->wherePivot('child_type', get_class($this))
             ->withPivotValue('child_type', get_class($this));
+    }
+
+    /**
+     * @override
+     *
+     * @return string
+     */
+    public function getItemMorphColumnName()
+    {
+        return 'itemable';
     }
 }
